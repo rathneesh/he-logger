@@ -1,0 +1,59 @@
+version: '2'
+services:
+  myservice:
+    build: 
+      context: ./myservice
+      args:
+        - http_proxy=$http_proxy
+        - https_proxy=$https_proxy
+        - ftp_proxy=$ftp_proxy
+        - no_proxy=$no_proxy
+        - HTTP_PROXY=$HTTP_PROXY
+        - HTTPS_PROXY=$HTTPS_PROXY
+        - FTP_PROXY=$FTP_PROXY
+        - NO_PROXY=$NO_PROXY
+    depends_on:
+      - logger
+    ports:
+      - "3000:3000"
+
+    volumes:
+      - ./myservice:/usr/src/app
+
+  logger:
+    #image: fluent/fluentd:v0.14.8
+    build:
+      context: ./fluentd
+      args:
+        - http_proxy=$http_proxy
+        - https_proxy=$https_proxy
+        - ftp_proxy=$ftp_proxy
+        - no_proxy=$no_proxy
+        - HTTP_PROXY=$HTTP_PROXY
+        - HTTPS_PROXY=$HTTPS_PROXY
+        - FTP_PROXY=$FTP_PROXY
+        - NO_PROXY=$NO_PROXY
+    ports:
+      - "24224:24224"
+    depends_on:
+      - elastic
+    volumes:
+      - ./conf:/fluentd/etc
+    environment:
+      - FLUENTD_CONF=fluentd.conf
+  elastic:
+    image: elasticsearch:2.4.1
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - ./esdata:/usr/share/elasticsearch/data
+  kibana:
+    image: kibana:4.6.1
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elastic
+    environment:
+      - ELASTICSEARCH_URL=http://elastic:9200
+

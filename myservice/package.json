@@ -1,0 +1,18 @@
+{
+  "name": "myservice",
+  "version": "0.0.0",
+  "description": "a test service for the logger",
+  "main": "server.es6",
+  "dependencies": {
+    "express": "^4.14.0",
+    "express-validator": "^2.20.8",
+    "fluent-logger": "^2.2.0"
+  },
+  "devDependencies": {
+  },
+  "scripts": {
+    "server": "node server.es6"
+ },
+  "author": "Hewlett Packard Enterprise (HPE)",
+  "license": "MIT"
+}
