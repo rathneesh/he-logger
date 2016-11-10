@@ -28,8 +28,6 @@ services:
       - logger
     ports:
       - "3000:3000"
-    volumes:
-      - ./demo_service:/usr/src/app
     networks:
       - logger_net
 
