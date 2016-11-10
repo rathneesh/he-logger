@@ -22,7 +22,7 @@ This is a list of **optional** services:
 
 Download `master` branch:
 
-```
+```bash
 # Using git
 git clone https://github.com/eedevops/he-logger.git && cd he-logger
 ```
@@ -36,43 +36,46 @@ git clone https://github.com/eedevops/he-logger.git && cd he-logger
 
 - Build docker images:
 
-```
-# Will build docker images that have Dockerfiles
-docker-compose build
-```
+  ```bash
+  # Will build docker images that have Dockerfiles
+  docker-compose build
+  ```
 
 - Start services:
 
-```
-docker-compose up
-```
+  ```bash
+  docker-compose up
+  ```
 
 - Connect `fluentd` clients to send logs to `localhost:24224`.
 - Access `kibana` dashboard at `localhost:5601`.
 
-# Logging for Hubot Enterprise
+# Logging for Hubot Enterprise services
 
 - Follow the steps in the [General Usage](#general-usage) section.
 - Set environment variables for your `he-<service>`:
 
-```
-# your fluentd host address and port (required)
-export FLUENTD_HOST=localhost
-export FLUENTD_PORT=24224
+  ```bash
+  # your fluentd host address and port (required)
+  export FLUENTD_HOST=localhost
+  export FLUENTD_PORT=24224
 
-# and optionally the following values in milliseconds
-export FLUENTD_TIMEOUT=600000
-export FLUENTD_RECONNECT=10
+  # and optionally the following values in milliseconds
+  export FLUENTD_TIMEOUT=600000
+  export FLUENTD_RECONNECT=10
 
-# Configure env vars for your service
-...
+  # Configure env vars for your service
+  ...
 
-# Run your service, e.g. identity portal
-cd he-identity-portal && npm run server
-```
+  # Example: run your service, let's say identity portal
+  cd he-identity-portal && npm run server
+  ```
 
 Your service logs should be sent to `fluentd` and you should be able to see
 them eventually in the `kibana` dashboard.
+
+> WIP: standardizing all service configurations for `fluentd`.
+> Visit the documentation of each service repo / wiki for latest details.
 
 # Running demo environment
 
@@ -80,7 +83,7 @@ them eventually in the `kibana` dashboard.
   building and running the _core_ services.
 - Build and run core services **plus** optional services:
   - Build docker images:
-    ```
+    ```bash
     # Will build docker images that have Dockerfiles
     docker-compose \
       -f docker-compose.yml \
@@ -89,7 +92,7 @@ them eventually in the `kibana` dashboard.
     ```
 
   - Start services:
-    ```
+    ```bash
     docker-compose \
       -f docker-compose.yml \
       -f demo_service/dc.yml \
@@ -104,7 +107,8 @@ that _pass through_ the most common environment variables to your `docker`
 build processes and to your container _runtime_ environments:
 
 - Build and start services in a proxy env:
-  ```
+
+  ```bash
   # Will build docker images that have Dockerfiles
   docker-compose \
     -f docker-compose.yml \
@@ -124,24 +128,24 @@ build processes and to your container _runtime_ environments:
 - Make sure that ports `24224` and `5601` are open in your VM and `myvmhost` is accessible through your network.
 - Set environment variables for your `he-<service>`:
 
-```
-# your fluentd host address and port (required)
-export FLUENTD_HOST=`myvmhost`
-export FLUENTD_PORT=24224
+  ```bash
+  # your fluentd host address and port (required)
+  export FLUENTD_HOST=`myvmhost`
+  export FLUENTD_PORT=24224
 
-# and optionally the following values in milliseconds
-export FLUENTD_TIMEOUT=600000
-export FLUENTD_RECONNECT=10
+  # and optionally the following values in milliseconds
+  export FLUENTD_TIMEOUT=600000
+  export FLUENTD_RECONNECT=10
 
-# Configure env vars for your service
-...
+  # Configure env vars for your service
+  ...
 
-# Run your service, e.g. identity portal
-cd he-identity-portal && npm run server
-```
+  # Example: run your service, let's say identity portal
+  cd he-identity-portal && npm run server
+  ```
 
-Your service logs should be sent to `fluentd` to `myvmhost:24224`
-and you should be able to see them eventually in the `kibana` dashboard at
+Your service logs should be sent to `fluentd` using the `myvmhost:24224` endpoint
+and you should be able to visualize them eventually in the `kibana` dashboard at
 `myvmhost:5601`.
 
 # License
