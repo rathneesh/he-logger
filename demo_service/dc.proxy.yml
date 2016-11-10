@@ -1,9 +1,8 @@
 version: '2'
 services:
-  logger:
-    #image: fluent/fluentd:v0.14.8
+  demo_service:
     build:
-      context: ./fluentd
+      context: ./demo_service
       args:
         - http_proxy=$http_proxy
         - https_proxy=$https_proxy
@@ -17,19 +16,8 @@ services:
         - http_proxy=$http_proxy
         - https_proxy=$https_proxy
         - ftp_proxy=$ftp_proxy
-        - no_proxy=${no_proxy},elastic
+        - no_proxy=${no_proxy},logger
         - HTTP_PROXY=$HTTP_PROXY
         - HTTPS_PROXY=$HTTPS_PROXY
         - FTP_PROXY=$FTP_PROXY
-        - NO_PROXY=${NO_PROXY},elastic
-
-  kibana:
-    environment:
-        - http_proxy=$http_proxy
-        - https_proxy=$https_proxy
-        - ftp_proxy=$ftp_proxy
-        - no_proxy=${no_proxy},elastic
-        - HTTP_PROXY=$HTTP_PROXY
-        - HTTPS_PROXY=$HTTPS_PROXY
-        - FTP_PROXY=$FTP_PROXY
-        - NO_PROXY=${NO_PROXY},elastic
+        - NO_PROXY=${NO_PROXY},logger

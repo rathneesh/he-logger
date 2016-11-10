@@ -3,11 +3,11 @@ let express = require('express');
 let fluent = require('fluent-logger');
 //configure the logger, dummy values for now, will change to real values afterwards
 
-fluent.configure('myservice', {
+fluent.configure('demo', {
   host: 'logger',
   port: 24224,
-  timeout: 3.0,
-  reconnectInterval: 600000 //10 minutes
+  timeout: 10,
+  reconnectInterval: 60000 // 1 minute
 });
 
 // Load express

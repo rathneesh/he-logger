@@ -1,15 +1,5 @@
 version: '2'
 services:
-  myservice:
-    build: ./myservice
-    depends_on:
-      - logger
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./myservice:/usr/src/app
-    networks:
-      - logger_net
   logger:
     #image: fluent/fluentd:v0.14.8
     build:
@@ -19,7 +9,7 @@ services:
     depends_on:
       - elastic
     volumes:
-      - ./conf:/fluentd/etc
+      - ./fluentd/conf:/fluentd/etc
     environment:
       - FLUENTD_CONF=fluentd.conf
     networks:
