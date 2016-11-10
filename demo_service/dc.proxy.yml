@@ -20,6 +20,26 @@
 #
 # END OF TERMS AND CONDITIONS
 
-FROM fluent/fluentd:v0.14.8
-
-RUN gem install fluent-plugin-elasticsearch
+version: '2'
+services:
+  demo_service:
+    build:
+      context: ./demo_service
+      args:
+        - http_proxy=$http_proxy
+        - https_proxy=$https_proxy
+        - ftp_proxy=$ftp_proxy
+        - no_proxy=$no_proxy
+        - HTTP_PROXY=$HTTP_PROXY
+        - HTTPS_PROXY=$HTTPS_PROXY
+        - FTP_PROXY=$FTP_PROXY
+        - NO_PROXY=$NO_PROXY
+    environment:
+        - http_proxy=$http_proxy
+        - https_proxy=$https_proxy
+        - ftp_proxy=$ftp_proxy
+        - no_proxy=${no_proxy},logger
+        - HTTP_PROXY=$HTTP_PROXY
+        - HTTPS_PROXY=$HTTPS_PROXY
+        - FTP_PROXY=$FTP_PROXY
+        - NO_PROXY=${NO_PROXY},logger

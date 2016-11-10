@@ -20,6 +20,16 @@
 #
 # END OF TERMS AND CONDITIONS
 
-FROM fluent/fluentd:v0.14.8
+version: '2'
+services:
+  demo_service:
+    build: ./demo_service
+    depends_on:
+      - logger
+    ports:
+      - "3000:3000"
+    networks:
+      - logger_net
 
-RUN gem install fluent-plugin-elasticsearch
+networks:
+  logger_net:

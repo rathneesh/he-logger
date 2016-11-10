@@ -1,5 +1,5 @@
 {
-  "name": "myservice",
+  "name": "demo_service",
   "version": "0.0.0",
   "description": "a test service for the logger",
   "main": "server.es6",

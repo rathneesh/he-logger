@@ -20,6 +20,14 @@
 #
 # END OF TERMS AND CONDITIONS
 
-FROM fluent/fluentd:v0.14.8
+FROM node:6.4
 
-RUN gem install fluent-plugin-elasticsearch
+ADD . /usr/src/app
+
+WORKDIR /usr/src/app
+
+RUN npm install
+
+EXPOSE 3000
+
+CMD ["npm", "run", "server"]
